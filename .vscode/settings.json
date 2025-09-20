@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "*.tcc": "cpp",
+        "compare": "cpp",
+        "ostream": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp",
+        "string": "cpp",
+        "chrono": "cpp",
+        "functional": "cpp",
+        "algorithm": "cpp",
+        "unordered_set": "cpp"
+    },
+    //clang配置
+    "clangd.path": "/usr/bin/clangd",
+    "clangd.arguments": [
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--clang-tidy"
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled"
+}
