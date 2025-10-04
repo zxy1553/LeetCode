@@ -2,41 +2,30 @@
 #include <vector>
 using namespace std;
 
+//当自己靠边界侧的水泥是瓶颈的时候，向中间收缩
 class Solution
 {
 public:
-    int trap(vector<int> &height)
-    {
-        int ret = 0, top = height[0];
-        int n = height.size();
-        vector<int> left(n);
-        for (int i = 1; i < n; i++)
-        {
-            if (height[i] >= top)
-            {
-                top = height[i];
-            }
-            else
-            {
-                left[i] = top - height[i];
+    int trap(vector<int> &height){
+        int res=0;
+        int leftMax=0,rightMax=0;
+
+        int left=0,right=height.size()-1;
+        while(left<right){
+
+            //更新的位置在这里是为了包括left、right自己
+            leftMax=max(leftMax,height[left]);
+            rightMax=max(rightMax,height[right]);
+
+            if(leftMax<rightMax){
+                res+=(leftMax-height[left]);
+                left++;
+            }else{
+                res+=(rightMax-height[right]);
+                right--;
             }
         }
-        int right = 0;
-        top = height[n - 1];
-        for (int i = n - 2; i >= 0; i--)
-        {
-            if (height[i] >= top)
-            {
-                top = height[i];
-                right=0;
-            }
-            else
-            {
-                right = top - height[i];
-            }
-            ret += min(left[i], right);
-        }
-        return ret;
+        return res;
     }
 };
 

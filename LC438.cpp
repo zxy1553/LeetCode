@@ -10,40 +10,36 @@ class Solution
 {
 public:
     vector<int> findAnagrams(string s, string p){
-        vector<int> ans;
+        vector<int> res;
         if(p.length()>s.length()) return {};
-
-        int pLen = p.length(), sLen = s.length();
-        
-        vector<int> pCount(26,0),sCount(26,0);
-
-        for (auto& c: p) {
-            pCount[c-'a']++;
+        vector<int> pCnt(26,0);
+        for(auto& c: p){
+            pCnt[c-'a']++;
         }
 
-        for (int i=0; i<pLen; ++i) {
-            sCount[s[i]-'a']++;
-        }
+        vector<int> sCnt(26,0);
+        int right=0;
 
-        if(sCount == pCount) ans.emplace_back(0);
-
-        for (int i=pLen; i<sLen; ++i) {
-            sCount[s[i]-'a']++;
-            sCount[s[i-pLen]-'a']--;
-            
-            if(sCount==pCount) ans.emplace_back(i-pLen+1);
+        for(int left=0; left<s.length()-p.length()+1; ++left){
+            while(right-left<p.length()){
+                sCnt[s[right++]-'a']++;
+            }
+            if(sCnt==pCnt){
+                res.emplace_back(left);
+            }
+            sCnt[s[left]-'a']--;
         }
-        return ans;
+        return res;
     }
 };
 
 
 int main(){
-    string s = "cbaebabacd", p="abc";
+    string s = "abab", p="ab";
     Solution sol;
     auto res = sol.findAnagrams(s, p);
 
     for (auto& num : res) {
-        cout<<num<<"/n";
+        cout<<num<<"\n";
     }
 }
